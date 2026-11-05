@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 35px;
-  background: #f4f7f5;
+  background: #f6f5fa;
   position: relative;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
@@ -15,7 +15,7 @@
   width: 450px;
   height: 450px;
   border-radius: 50%;
-  background: #d9f5e6;
+  background: #e9e2ff;
   filter: blur(90px);
   opacity: 0.65;
   top: -180px;
@@ -34,14 +34,14 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
-  box-shadow: 0 25px 80px rgba(23, 53, 37, 0.09);
+  box-shadow: 0 25px 80px rgba(36, 33, 54, 0.09);
 }
 
 /* Left Section */
 
 .leftSection {
   padding: 45px;
-  background: #153d2b;
+  background: #242136;
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -90,13 +90,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #75e6ae;
-  color: #153d2b;
+  background: #eee9ff;
+  color: #8769df;
   border-radius: 11px;
 }
 
 .logoDot {
-  color: #75e6ae;
+  color: #9678f3;
 }
 
 .leftContent {
@@ -110,7 +110,7 @@
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #75e6ae;
+  color: #9678f3;
   margin-bottom: 20px;
 }
 
@@ -123,11 +123,11 @@
 }
 
 .leftContent h1 span {
-  color: #75e6ae;
+  color: #9678f3;
 }
 
 .leftContent p {
-  color: #b8cec1;
+  color: #b9b5c8;
   font-size: 14px;
   line-height: 1.9;
   max-width: 340px;
@@ -145,17 +145,17 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #d5e5dc;
+  color: #dedbe9;
   font-size: 13px;
 }
 
 .benefit svg {
-  color: #75e6ae;
+  color: #9678f3;
   flex-shrink: 0;
 }
 
 .leftFooter {
-  color: #8ca99a;
+  color: #8e899f;
   font-size: 11px;
   position: relative;
   z-index: 2;
@@ -181,14 +181,14 @@
 }
 
 .formEyebrow {
-  color: #319568;
+  color: #9678f3;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.6px;
 }
 
 .formHeader h2 {
-  color: #172b20;
+  color: #242136;
   font-size: 29px;
   letter-spacing: -1px;
   margin: 12px 0 8px;
@@ -196,7 +196,7 @@
 }
 
 .formHeader p {
-  color: #89948d;
+  color: #898598;
   font-size: 13px;
   margin: 0;
 }
@@ -216,14 +216,14 @@
 }
 
 .inputGroup label {
-  color: #27392e;
+  color: #383449;
   font-size: 12px;
   font-weight: 700;
 }
 
 .inputWrapper {
   height: 48px;
-  border: 1px solid #e4eae6;
+  border: 1px solid #e9e7ef;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -234,12 +234,12 @@
 }
 
 .inputWrapper:focus-within {
-  border-color: #45b985;
-  box-shadow: 0 0 0 3px rgba(69, 185, 133, 0.1);
+  border-color: #9678f3;
+  box-shadow: 0 0 0 3px rgba(150, 120, 243, 0.1);
 }
 
 .inputWrapper > svg {
-  color: #9ba9a0;
+  color: #9893a7;
   flex-shrink: 0;
 }
 
@@ -249,19 +249,19 @@
   border: none;
   outline: none;
   background: transparent;
-  color: #20362a;
+  color: #242136;
   font-size: 12px;
   font-family: inherit;
 }
 
 .inputWrapper input::placeholder {
-  color: #b1bbb5;
+  color: #aaa6b5;
 }
 
 .eyeButton {
   border: none;
   background: transparent;
-  color: #9ba9a0;
+  color: #9893a7;
   cursor: pointer;
   padding: 4px;
   display: flex;
@@ -271,7 +271,7 @@
 }
 
 .eyeButton:hover {
-  color: #319568;
+  color: #9678f3;
 }
 
 /* Submit Button */
@@ -281,7 +281,7 @@
   height: 49px;
   border: none;
   border-radius: 10px;
-  background: #1d704b;
+  background: #886ce5;
   color: #ffffff;
   font-size: 13px;
   font-weight: 700;
@@ -296,9 +296,15 @@
 }
 
 .submitButton:hover {
-  background: #155b3b;
-  box-shadow: 0 8px 20px rgba(29, 112, 75, 0.2);
+  background: #7658d6;
+  box-shadow: 0 8px 20px rgba(136, 108, 229, 0.2);
   transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .submitButton svg {
@@ -323,11 +329,11 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: #edf0ee;
+  background: #eeeaf3;
 }
 
 .divider span {
-  color: #aab3ad;
+  color: #aaa6b5;
   font-size: 10px;
   font-weight: 700;
 }
@@ -336,13 +342,13 @@
 
 .loginText {
   text-align: center;
-  color: #89948d;
+  color: #898598;
   font-size: 12px;
   margin: 0;
 }
 
 .loginText a {
-  color: #23865a;
+  color: #886ce5;
   font-weight: 800;
   text-decoration: none;
 }
@@ -355,12 +361,12 @@
   text-align: center;
   font-size: 10px;
   line-height: 1.8;
-  color: #a5aea8;
+  color: #aaa6b5;
   margin: 24px 0 0;
 }
 
 .terms span {
-  color: #547763;
+  color: #716b83;
   font-weight: 700;
 }
 
