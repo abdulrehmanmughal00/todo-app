@@ -1,0 +1,59 @@
+.listSection {
+  margin-top: 45px;
+}
+
+.listHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.listHeading h2 {
+  margin: 0 0 7px;
+  font-size: 22px;
+  color: #242136;
+}
+
+.listHeading p {
+  color: #9994a7;
+  font-size: 13px;
+  margin: 0;
+}
+
+.taskCount {
+  padding: 8px 14px;
+  background: #eee9ff;
+  color: #8567df;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.todos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 45px 15px;
+  background: white;
+  border: 1px dashed #ded8ed;
+  border-radius: 15px;
+  color: #a39caf;
+}
+
+.emptyState svg {
+  color: #9678ed;
+}
+
+.emptyState h3 {
+  color: #49435b;
+  margin-bottom: 5px;
+}
+
+.emptyState p {
+  font-size: 13px;
+}

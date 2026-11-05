@@ -1,0 +1,89 @@
+.formCard {
+  background: white;
+  padding: 30px;
+  border: 1px solid #efedf5;
+  border-radius: 19px;
+  box-shadow: 0 12px 35px rgba(50, 36, 100, 0.045);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #9678ed;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.formHeading h2 {
+  margin: 13px 0 5px;
+  font-size: 22px;
+  color: #242136;
+}
+
+.formHeading p {
+  color: #9994a7;
+  font-size: 13px;
+  margin: 0;
+}
+
+.todoForm {
+  margin-top: 25px;
+}
+
+.taskInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 17px;
+  border: 1px solid #eae7f1;
+  border-radius: 11px;
+  outline: none;
+  font: inherit;
+  transition: 0.2s;
+}
+
+.taskInput:focus {
+  border-color: #9678ed;
+  box-shadow: 0 0 0 3px #9678ed20;
+}
+
+.formBottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  gap: 12px;
+}
+
+.prioritySelect {
+  padding: 11px 15px;
+  border: 1px solid #eae7f1;
+  border-radius: 10px;
+  background: white;
+  color: #5c566d;
+  outline: none;
+}
+
+.addBtn {
+  background: #886ce5;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.addBtn:hover {
+  background: #7557d1;
+}
+
+@media (max-width: 600px) {
+  .formCard {
+    padding: 20px;
+  }
+}
