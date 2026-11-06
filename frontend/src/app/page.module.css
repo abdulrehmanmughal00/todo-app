@@ -1,5 +1,8 @@
+
 .app {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: #faf9fd;
   color: #242136;
 }
@@ -7,7 +10,8 @@
 .container {
   max-width: 850px;
   width: 90%;
-  margin: auto;
+  margin: 0 auto;
+  flex: 1;
 }
 
 .hero {
@@ -15,11 +19,21 @@
   padding: 65px 0 40px;
 }
 
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #9678ed;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
 .hero h1 {
   font-size: clamp(32px, 5vw, 48px);
   margin: 0;
   font-weight: 800;
   letter-spacing: -2px;
+  line-height: 1.2;
 }
 
 .hero h1 span {
@@ -30,14 +44,92 @@
   color: #918ca0;
   margin-top: 13px;
   font-size: 15px;
+  line-height: 1.7;
 }
 
+.content {
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+/* Loading */
+.loading {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  color: #918ca0;
+  font-size: 14px;
+}
+
+.loading p {
+  margin: 0;
+}
+
+.loader {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #e9e3fa;
+  border-top-color: #9678ed;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Login Prompt */
+.loginPrompt {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 38px 25px;
+  background: #fff;
+  border: 1px solid #efedf5;
+  border-radius: 19px;
+  box-shadow: 0 12px 35px rgba(50, 36, 100, 0.045);
+  text-align: center;
+}
+
+.promptIcon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: #eee9ff;
+  color: #886ce5;
+  font-size: 27px;
+}
+
+.loginPrompt h2 {
+  margin: 0 0 9px;
+  color: #242136;
+  font-size: 21px;
+  font-weight: 750;
+}
+
+.loginPrompt p {
+  max-width: 350px;
+  margin: 0 auto;
+  color: #9994a7;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Footer */
 .footer {
   margin-top: 70px;
   border-top: 1px solid #efedf5;
   padding: 25px 8%;
   display: flex;
   justify-content: space-between;
+  gap: 15px;
   color: #9994a7;
   font-size: 12px;
 }
@@ -51,7 +143,23 @@
     padding: 50px 0 30px;
   }
 
+  .hero h1 {
+    letter-spacing: -1.5px;
+  }
+
+  .hero p {
+    font-size: 13px;
+  }
+
+  .loginPrompt {
+    padding: 30px 18px;
+  }
+
   .footer {
     padding: 20px 5%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
   }
 }

@@ -1,5 +1,7 @@
 import type { Request, Response } from "express";
 import todoModel from "../models/todo.model.js";
+
+
 const createTodo = async (req: Request, res: Response) => {
   try {
     const { title, priority } = req.body;
@@ -34,5 +36,36 @@ const createTodo = async (req: Request, res: Response) => {
     });
   }
 };
+const getTodos = async (req: Request, res: Response) => {
+  try {
+    const userId = req.userId;
 
-export default { createTodo };
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Please login first.",
+      });
+    }
+
+    const todos = await todoModel.find({
+      userId,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Todos fetched successfully",
+      todos,
+    });
+  } catch (error) {
+    console.log("Get todos error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+
+
+export default { createTodo,getTodos };

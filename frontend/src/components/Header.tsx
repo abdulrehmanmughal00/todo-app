@@ -1,9 +1,10 @@
+
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { CheckSquare, UserRound, LogOut } from "lucide-react";
+import { ClipboardList, LogOut, UserRound } from "lucide-react";
 
 import styles from "./Header.module.css";
 
@@ -20,48 +21,88 @@ interface ApiResponse {
 
 const Header = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const [logoutLoading, setLogoutLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Get logged-in user
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:4000/api/auth/get-user",
-          {
-            method: "GET",
-            credentials: "include",
-          },
+  const fetchUser = useCallback(async () => {
+    try {
+      const response = await axios.get<ApiResponse>(
+        "http://localhost:4000/api/auth/get-user",
+        { withCredentials: true }
+      );
+
+      if (response.data.success && response.data.user) {
+        setUser(response.data.user);
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      setUser(null);
+
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Fetch user error:",
+          error.response?.data?.message || error.message
         );
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-        const data: ApiResponse = await response.json();
+  useEffect(() => {
+    let isActive = true;
 
-        if (response.ok && data.success && data.user) {
-          setUser(data.user);
+    axios
+      .get<ApiResponse>("http://localhost:4000/api/auth/get-user", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (!isActive) return;
+
+        if (response.data.success && response.data.user) {
+          setUser(response.data.user);
         } else {
           setUser(null);
         }
-      } catch (error) {
-        console.error("User fetch error:", error);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
+      })
+      .catch(() => {
+        if (isActive) setUser(null);
+      })
+      .finally(() => {
+        if (isActive) setLoading(false);
+      });
+
+    const handleLogin = () => {
+      fetchUser();
     };
 
-    getUser();
-  }, []);
+    const handleLogout = () => {
+      setUser(null);
+      setLoading(false);
+    };
 
-  // Logout user
+    window.addEventListener("user-login", handleLogin);
+    window.addEventListener("user-logout", handleLogout);
+
+    return () => {
+      isActive = false;
+      window.removeEventListener("user-login", handleLogin);
+      window.removeEventListener("user-logout", handleLogout);
+    };
+  }, [fetchUser]);
+
   const handleLogout = async () => {
     try {
       setLogoutLoading(true);
 
-      const response = await fetch("http://localhost:4000/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/auth/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
 
       const data: ApiResponse = await response.json();
 
@@ -70,6 +111,7 @@ const Header = () => {
       }
 
       setUser(null);
+      window.dispatchEvent(new Event("user-logout"));
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
@@ -77,78 +119,56 @@ const Header = () => {
     }
   };
 
+  if (loading) return null;
+
   return (
-    <motion.header
-      className={styles.header}
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
+    <header className={styles.header}>
       <Link href="/" className={styles.logo}>
-        <div className={styles.logoIcon}>
-          <CheckSquare size={22} />
-        </div>
+        <span className={styles.logoIcon}>
+          <ClipboardList size={21} />
+        </span>
 
         <span>
           Taskly<span className={styles.logoDot}>.</span>
         </span>
       </Link>
 
-      <nav className={styles.nav}>
-        <Link href="/">Home</Link>
-        <Link href="/#tasks">My Tasks</Link>
-      </nav>
+ 
+      <div className={styles.authButtons}>
+        {user ? (
+          <>
+            <div className={styles.profile}>
+              <span className={styles.avatar}>
+                {user.name?.charAt(0).toUpperCase() || (
+                  <UserRound size={18} />
+                )}
+              </span>
+              <span>{user.name}</span>
+            </div>
 
-      <div className={styles.authArea}>
-        {loading ? (
-          <div className={styles.loading}>Loading...</div>
+            <button
+              type="button"
+              className={styles.logoutBtn}
+              onClick={handleLogout}
+              disabled={logoutLoading}
+            >
+              <LogOut size={16} />
+              {logoutLoading ? "Logging out..." : "Logout"}
+            </button>
+          </>
         ) : (
-          <AnimatePresence mode="wait">
-            {user ? (
-              <motion.div
-                key="profile"
-                className={styles.profile}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <div className={styles.avatar}>
-                  <UserRound size={19} />
-                </div>
+          <>
+            <Link href="/login" className={styles.loginBtn}>
+              Login
+            </Link>
 
-                <span>{user.name}</span>
-
-                <button
-                  type="button"
-                  className={styles.logoutBtn}
-                  onClick={handleLogout}
-                  disabled={logoutLoading}
-                >
-                  <LogOut size={17} />
-                  {logoutLoading ? "Logging out..." : "Logout"}
-                </button>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="auth"
-                className={styles.authButtons}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <Link href="/login" className={styles.loginBtn}>
-                  Login
-                </Link>
-
-                <Link href="/register" className={styles.signupBtn}>
-                  Sign Up
-                </Link>
-              </motion.div>
-            )}
-          </AnimatePresence>
+            <Link href="/register" className={styles.signupBtn}>
+              Sign up
+            </Link>
+          </>
         )}
       </div>
-    </motion.header>
+    </header>
   );
 };
 

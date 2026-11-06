@@ -58,3 +58,105 @@
     padding: 15px;
   }
 }
+/* Edit Task Form */
+.todoItem form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.todoItem form input {
+  flex: 1;
+  min-width: 100px;
+  padding: 11px 13px;
+  border: 1px solid #eae7f1;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #39344b;
+  font: inherit;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.todoItem form input:focus {
+  border-color: #9678ed;
+  box-shadow: 0 0 0 3px #9678ed20;
+}
+
+.todoItem form select {
+  padding: 11px 12px;
+  border: 1px solid #eae7f1;
+  border-radius: 9px;
+  background: white;
+  color: #5c566d;
+  outline: none;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.todoItem form select:focus {
+  border-color: #9678ed;
+}
+
+.todoItem form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 13px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.todoItem form button[type="submit"] {
+  border: 1px solid #886ce5;
+  background: #886ce5;
+  color: white;
+}
+
+.todoItem form button[type="submit"]:hover {
+  background: #7557d1;
+}
+
+.todoItem form button[type="button"] {
+  border: 1px solid #eae7f1;
+  background: white;
+  color: #77738c;
+}
+
+.todoItem form button[type="button"]:hover {
+  background: #f5f3fa;
+  color: #39344b;
+}
+
+.todoItem form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .todoItem {
+    flex-wrap: wrap;
+  }
+
+  .todoItem form {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .todoItem form input {
+    flex-basis: 100%;
+  }
+
+  .todoItem form select {
+    flex: 1;
+  }
+}

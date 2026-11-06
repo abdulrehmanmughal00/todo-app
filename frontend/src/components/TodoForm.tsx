@@ -1,74 +1,49 @@
-
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast } from "sonner";
-import { motion } from "framer-motion";
-import { Plus, Sparkles } from "lucide-react";
+import { ClipboardList, Plus } from "lucide-react";
 
 import styles from "./TodoForm.module.css";
 
 interface TodoFormProps {
-  onSubmit?: () => void;
+  onSubmit: () => Promise<void>;
 }
 
 const TodoForm = ({ onSubmit }: TodoFormProps) => {
-  const router = useRouter();
-
   const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState<"Low" | "Medium" | "High">(
-    "Medium"
-  );
+  const [priority, setPriority] = useState<"Low" | "Medium" | "High">("Medium");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!title.trim()) {
-      toast.error("Please enter a task.");
-      return;
-    }
+    if (!title.trim()) return;
 
     try {
       setLoading(true);
 
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:4000/api/todo/create",
         {
           title: title.trim(),
           priority,
         },
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      toast.success(
-        response.data.message || "Task created successfully!"
+        { withCredentials: true },
       );
 
       setTitle("");
       setPriority("Medium");
 
-      onSubmit?.();
-    } catch (error: unknown) {
+      await onSubmit();
+    } catch (error) {
       if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          toast.error("Please login to create a task.");
-          router.push("/login");
-          return;
-        }
-
-        toast.error(
-          error.response?.data?.message || "Unable to create task."
+        console.error(
+          "Create todo error:",
+          error.response?.data?.message || error.message,
         );
       } else {
-        toast.error("Something went wrong.");
+        console.error("Something went wrong:", error);
       }
     } finally {
       setLoading(false);
@@ -76,32 +51,25 @@ const TodoForm = ({ onSubmit }: TodoFormProps) => {
   };
 
   return (
-    <motion.div
-      className={styles.formCard}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.2 }}
-    >
+    <div className={styles.formCard}>
       <div className={styles.formHeading}>
         <span className={styles.eyebrow}>
-          <Sparkles size={14} />
-          STAY PRODUCTIVE
+          <ClipboardList size={14} />
+          NEW TASK
         </span>
 
-        <h2>Create a new task</h2>
-
-        <p>Small steps lead to big achievements.</p>
+        <h2>Create a task</h2>
+        <p>Write down what you need to get done.</p>
       </div>
 
       <form className={styles.todoForm} onSubmit={handleSubmit}>
         <input
+          className={styles.taskInput}
           type="text"
           placeholder="What needs to be done?"
-          className={styles.taskInput}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           disabled={loading}
-          maxLength={150}
         />
 
         <div className={styles.formBottom}>
@@ -113,22 +81,22 @@ const TodoForm = ({ onSubmit }: TodoFormProps) => {
             }
             disabled={loading}
           >
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
+            <option value="Low">Low Priority</option>
+            <option value="Medium">Medium Priority</option>
+            <option value="High">High Priority</option>
           </select>
 
           <button
-            type="submit"
             className={styles.addBtn}
-            disabled={loading}
+            type="submit"
+            disabled={loading || !title.trim()}
           >
             <Plus size={18} />
             {loading ? "Adding..." : "Add Task"}
           </button>
         </div>
       </form>
-    </motion.div>
+    </div>
   );
 };
 

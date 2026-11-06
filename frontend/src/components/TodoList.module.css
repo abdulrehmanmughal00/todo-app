@@ -1,17 +1,21 @@
+
 .listSection {
   margin-top: 45px;
+  width: 100%;
 }
 
 .listHeading {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 .listHeading h2 {
   margin: 0 0 7px;
   font-size: 22px;
+  font-weight: 750;
   color: #242136;
 }
 
@@ -28,15 +32,21 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .todos {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
 }
 
 .emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   padding: 45px 15px;
   background: white;
@@ -47,13 +57,45 @@
 
 .emptyState svg {
   color: #9678ed;
+  margin-bottom: 12px;
 }
 
 .emptyState h3 {
   color: #49435b;
-  margin-bottom: 5px;
+  margin: 0 0 5px;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .emptyState p {
   font-size: 13px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .listSection {
+    margin-top: 35px;
+  }
+
+  .listHeading {
+    margin-bottom: 16px;
+  }
+
+  .listHeading h2 {
+    font-size: 19px;
+  }
+
+  .listHeading p {
+    font-size: 12px;
+  }
+
+  .taskCount {
+    padding: 7px 11px;
+    font-size: 11px;
+  }
+
+  .emptyState {
+    padding: 35px 12px;
+  }
 }

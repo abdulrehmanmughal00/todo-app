@@ -26,6 +26,7 @@
   color: #9994a7;
   font-size: 13px;
   margin: 0;
+  line-height: 1.6;
 }
 
 .todoForm {
@@ -40,7 +41,13 @@
   border-radius: 11px;
   outline: none;
   font: inherit;
+  color: #39344b;
+  background: white;
   transition: 0.2s;
+}
+
+.taskInput::placeholder {
+  color: #aaa5b7;
 }
 
 .taskInput:focus {
@@ -48,9 +55,15 @@
   box-shadow: 0 0 0 3px #9678ed20;
 }
 
+.taskInput:disabled {
+  background: #f8f7fb;
+  cursor: not-allowed;
+}
+
 .formBottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 15px;
   gap: 12px;
 }
@@ -62,6 +75,16 @@
   background: white;
   color: #5c566d;
   outline: none;
+  cursor: pointer;
+}
+
+.prioritySelect:focus {
+  border-color: #9678ed;
+}
+
+.prioritySelect:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .addBtn {
@@ -72,18 +95,41 @@
   border-radius: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s;
 }
 
-.addBtn:hover {
+.addBtn:hover:not(:disabled) {
   background: #7557d1;
+  transform: translateY(-1px);
+}
+
+.addBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 @media (max-width: 600px) {
   .formCard {
     padding: 20px;
+  }
+
+  .formHeading h2 {
+    font-size: 20px;
+  }
+
+  .formBottom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .prioritySelect,
+  .addBtn {
+    width: 100%;
+    justify-content: center;
   }
 }
