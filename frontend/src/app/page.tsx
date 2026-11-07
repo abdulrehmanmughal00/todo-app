@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -29,7 +28,7 @@ function Page() {
 
       const response = await axios.get(
         "http://localhost:4000/api/todo/get-todo",
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       if (currentRequest !== requestVersion.current) return;
@@ -45,7 +44,7 @@ function Page() {
       if (axios.isAxiosError(error)) {
         console.log(
           "Get todos error:",
-          error.response?.data?.message || error.message
+          error.response?.data?.message || error.message,
         );
       }
     } finally {
@@ -79,7 +78,7 @@ function Page() {
         if (axios.isAxiosError(error)) {
           console.log(
             "Get todos error:",
-            error.response?.data?.message || error.message
+            error.response?.data?.message || error.message,
           );
         }
       })
@@ -121,9 +120,9 @@ function Page() {
       if (!todo) return;
 
       await axios.patch(
-        `http://localhost:4000/api/todo/${id}`,
+        `http://localhost:4000/api/todo/toggle/${id}`,
         { isCompleted: !todo.isCompleted },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       await fetchTodos();
@@ -135,10 +134,9 @@ function Page() {
   // Delete
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(
-        `http://localhost:4000/api/todo/${id}`,
-        { withCredentials: true }
-      );
+      await axios.delete(`http://localhost:4000/api/todo/delete/${id}`, {
+        withCredentials: true,
+      });
 
       await fetchTodos();
     } catch (error) {
@@ -152,14 +150,12 @@ function Page() {
     data: {
       title: string;
       priority: "Low" | "Medium" | "High";
-    }
+    },
   ) => {
     try {
-      await axios.patch(
-        `http://localhost:4000/api/todo/${id}`,
-        data,
-        { withCredentials: true }
-      );
+      await axios.patch(`http://localhost:4000/api/todo/edit/${id}`, data, {
+        withCredentials: true,
+      });
 
       await fetchTodos();
     } catch (error) {
@@ -174,17 +170,13 @@ function Page() {
 
       <main className={styles.container}>
         <section className={styles.hero}>
-          <span className={styles.eyebrow}>
-            YOUR DAY, ORGANIZED
-          </span>
+          <span className={styles.eyebrow}>YOUR DAY, ORGANIZED</span>
 
           <h1>
             Make today <span>count.</span>
           </h1>
 
-          <p>
-            Organize your work, manage your time, and get things done.
-          </p>
+          <p>Organize your work, manage your time, and get things done.</p>
         </section>
 
         <section className={styles.content}>
@@ -210,9 +202,7 @@ function Page() {
 
               <h2>Your tasks are waiting.</h2>
 
-              <p>
-                Login to manage your tasks and keep your day organized.
-              </p>
+              <p>Login to manage your tasks and keep your day organized.</p>
             </div>
           )}
         </section>
